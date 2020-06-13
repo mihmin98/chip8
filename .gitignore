@@ -36,5 +36,5 @@ chip8
 
 # Build dirs
 build
-tests/obj/*
-tests/build/*
+tests/obj
+tests/build
