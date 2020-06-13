@@ -4,9 +4,11 @@
 #pragma once
 #include <cstdint>
 #include <string>
+#include <cstring>
 
 #define CHIP8_MEMORY_SIZE 4096
 #define CHIP8_PROGRAM_START 0x200
+#define CHIP8_FONTSET_START 0x50
 #define CHIP8_TIMER_FREQUENCY 60
 #define CHIP8_VIDEO_WIDTH 64
 #define CHIP8_VIDEO_HEIGHT 32
