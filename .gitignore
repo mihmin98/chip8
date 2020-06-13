@@ -33,3 +33,8 @@
 
 # App executable
 chip8
+
+# Build dirs
+build/*
+tests/obj/*
+tests/build/*
