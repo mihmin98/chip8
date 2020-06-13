@@ -3,8 +3,12 @@
 
 #pragma once
 #include <cstdint>
-#include <string>
+#include <cstdlib>
+#include <ctime>
 #include <cstring>
+#include <fstream>
+#include <iostream>
+#include <string>
 
 #define CHIP8_MEMORY_SIZE 4096
 #define CHIP8_PROGRAM_START 0x200
@@ -30,10 +34,11 @@ class Chip8
     uint16_t opcode; // current opcode
 
     Chip8();
-    void LoadROM(std::string romPath);
-    void Cycle();
-    void Execute();
+    // Loads the rom from the specified path, return true on success
+    bool LoadROM(std::string romPath);
     uint8_t Random();
+    void Cycle();
+    void ExecuteOpcode();
 
     // Opcodes
     void OP_00E0(); // Clear Screen

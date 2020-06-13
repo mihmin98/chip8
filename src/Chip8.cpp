@@ -1,5 +1,201 @@
 #include "Chip8.hpp"
 
+Chip8::Chip8()
+{
+    // Clear all
+    memset(memory, 0x0, sizeof(memory));
+    memset(V, 0x0, sizeof(V));
+    memset(stack, 0x0, sizeof(stack));
+    memset(keypad, 0x0, sizeof(keypad));
+    memset(video, 0x0, sizeof(video));
+
+    // Init registers
+    PC = CHIP8_PROGRAM_START;
+    SP = 0;
+    I = 0;
+    delayTimer = 0;
+    soundTimer = 0;
+
+    // Add fontset
+    uint8_t fontset[80] = {
+        0xF0, 0x90, 0x90, 0x90, 0xF0, // 0
+        0x20, 0x60, 0x20, 0x20, 0x70, // 1
+        0xF0, 0x10, 0xF0, 0x80, 0xF0, // 2
+        0xF0, 0x10, 0xF0, 0x10, 0xF0, // 3
+        0x90, 0x90, 0xF0, 0x10, 0x10, // 4
+        0xF0, 0x80, 0xF0, 0x10, 0xF0, // 5
+        0xF0, 0x80, 0xF0, 0x90, 0xF0, // 6
+        0xF0, 0x10, 0x20, 0x40, 0x40, // 7
+        0xF0, 0x90, 0xF0, 0x90, 0xF0, // 8
+        0xF0, 0x90, 0xF0, 0x10, 0xF0, // 9
+        0xF0, 0x90, 0xF0, 0x90, 0x90, // A
+        0xE0, 0x90, 0xE0, 0x90, 0xE0, // B
+        0xF0, 0x80, 0x80, 0x80, 0xF0, // C
+        0xE0, 0x90, 0x90, 0x90, 0xE0, // D
+        0xF0, 0x80, 0xF0, 0x80, 0xF0, // E
+        0xF0, 0x80, 0xF0, 0x80, 0x80  // F
+    };
+
+    for (int i = 0; i < 80; ++i) {
+        memory[CHIP8_FONTSET_START + i] = fontset[i];
+    }
+}
+
+bool Chip8::LoadROM(std::string romPath)
+{
+    std::ifstream rom(romPath, std::ios::binary | std::ios::ate);
+    if (rom.is_open()) {
+        std::streamsize romSize = rom.tellg();
+        if (romSize > 4096 - CHIP8_PROGRAM_START) {
+            std::cerr << "ROM is too large\n";
+            return false;
+        }
+        rom.seekg(0, std::ios::beg);
+        rom.read((char *)(memory + CHIP8_PROGRAM_START), romSize);
+        return true;
+    } else {
+        std::cerr << "ROM " << romPath << " could not be opened\n";
+        return false;
+    }
+}
+
+uint8_t Chip8::Random()
+{
+    srand(time(NULL));
+    return rand() % 0xFF;
+}
+
+void Chip8::Cycle()
+{
+    opcode = (memory[PC] << 8) | memory[PC + 1];
+    PC += 2;
+    ExecuteOpcode();
+}
+
+void Chip8::ExecuteOpcode()
+{
+    switch ((opcode & 0xF000) >> 12) {
+    case 0x0:
+        switch (opcode & 0x00FF) {
+        case 0xE0:
+            OP_00E0();
+            break;
+        case 0xEE:
+            OP_00EE();
+            break;
+        }
+        break;
+    case 0x1:
+        OP_1nnn();
+        break;
+    case 0x2:
+        OP_2nnn();
+        break;
+    case 0x3:
+        OP_3xkk();
+        break;
+    case 0x4:
+        OP_4xkk();
+        break;
+    case 0x5:
+        OP_5xy0();
+        break;
+    case 0x6:
+        OP_6xkk();
+        break;
+    case 0x7:
+        OP_7xkk();
+        break;
+    case 0x8:
+        switch (opcode & 0x000F) {
+        case 0x0:
+            OP_8xy0();
+            break;
+        case 0x1:
+            OP_8xy1();
+            break;
+        case 0x2:
+            OP_8xy2();
+            break;
+        case 0x3:
+            OP_8xy3();
+            break;
+        case 0x4:
+            OP_8xy4();
+            break;
+        case 0x5:
+            OP_8xy5();
+            break;
+        case 0x6:
+            OP_8xy6();
+            break;
+        case 0x7:
+            OP_8xy7();
+            break;
+        case 0xE:
+            OP_8xyE();
+            break;
+        }
+        break;
+    case 0x9:
+        OP_9xy0();
+        break;
+    case 0xA:
+        OP_Annn();
+        break;
+    case 0xB:
+        OP_Bnnn();
+        break;
+    case 0xC:
+        OP_Cxkk();
+        break;
+    case 0xD:
+        OP_Dxyn();
+        break;
+    case 0xE:
+        switch (opcode & 0x00FF) {
+        case 0x9E:
+            OP_Ex9E();
+            break;
+        case 0xA1:
+            OP_ExA1();
+            break;
+        }
+        break;
+    case 0xF:
+        switch (opcode & 0x00FF) {
+        case 0x07:
+            OP_Fx07();
+            break;
+        case 0x0A:
+            OP_Fx0A();
+            break;
+        case 0x15:
+            OP_Fx15();
+            break;
+        case 0x18:
+            OP_Fx18();
+            break;
+        case 0x1E:
+            OP_Fx1E();
+            break;
+        case 0x29:
+            OP_Fx29();
+            break;
+        case 0x33:
+            OP_Fx33();
+            break;
+        case 0x55:
+            OP_Fx55();
+            break;
+        case 0x65:
+            OP_Fx65();
+            break;
+        }
+        break;
+    }
+}
+
 // Clear Screen
 void Chip8::OP_00E0() { memset(video, 0x0, sizeof(video)); }
 
