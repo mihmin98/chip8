@@ -35,6 +35,6 @@
 chip8
 
 # Build dirs
-build/*
+build
 tests/obj/*
 tests/build/*

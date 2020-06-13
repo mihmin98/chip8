@@ -6,9 +6,11 @@ OBJ_DIR 		:= $(BUILD)/obj
 APP_DIR 		:= $(BUILD)/app
 APPNAME 		:= chip8
 INCLUDE 		:= -Iinclude
-SRC				:= $(wildcard src/*.cpp)
+SRC_DIR			:= ./src
+SRC				:= $(wildcard $(SRC_DIR)/*.cpp)
 
-OBJECTS			:= $(SRC:%.cpp=$(OBJ_DIR)/%.o)
+OBJECTS			:= $(SRC:%.cpp=%.o)
+OBJECTS			:= $(patsubst $(SRC_DIR)/%,$(OBJ_DIR)/%,$(OBJECTS))
 
 TEST 			:= ./tests
 TEST_OBJ_DIR 	:= $(TEST)/obj 
@@ -17,7 +19,10 @@ TEST_SRC 		:= $(wildcard tests/src/*.cpp)
 
 all: build $(APP_DIR)/$(APPNAME)
 
-$(OBJ_DIR)./%.o: %.cpp
+echo:
+	@echo $(OBJECTS)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(@D)
 	$(CXX) $(CXXFLAGFS) $(INCLUDE) -c $< -o $@ $(LDFLAGS)
 
