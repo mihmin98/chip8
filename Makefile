@@ -43,8 +43,4 @@ release: CXXFLAGFS += -O2
 release: all
 
 clean:
-	-@rm -rvf $(OBJ_DIR)/*
-	-@rm -rvf $(APP_DIR)/*
-	-@rm -rvf $(TEST_OBJ_DIR)/*
-	-@rm -rvf $(TEST_BUILD_DIR)/*
-
+	rm $(OBJ_DIR)/*.o $(TEST_OBJ_DIR)/*.o $(TEST_BUILD_DIR)/* $(APP_DIR)/$(APPNAME)
