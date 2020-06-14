@@ -452,9 +452,9 @@ void Chip8::OP_Fx29()
 void Chip8::OP_Fx33()
 {
     uint8_t x = (opcode & 0x0F00) >> 8;
-    uint8_t hundred = x / 100;
-    uint8_t ten = x % 100 / 10;
-    uint8_t one = x % 10;
+    uint8_t hundred = V[x] / 100;
+    uint8_t ten = V[x] % 100 / 10;
+    uint8_t one = V[x] % 10;
 
     memory[I] = hundred;
     memory[I + 1] = ten;
