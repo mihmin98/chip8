@@ -362,7 +362,6 @@ void Chip8::OP_Dxyn()
     uint8_t n = opcode & 0x000F;
     uint8_t spriteByte, spritePixel, displayPixel;
     uint16_t displayPos;
-    ;
 
     uint8_t xPos = V[x] % CHIP8_VIDEO_WIDTH;
     uint8_t yPos = V[y] % CHIP8_VIDEO_WIDTH;
@@ -376,7 +375,8 @@ void Chip8::OP_Dxyn()
             displayPos = (yPos + i) * CHIP8_VIDEO_WIDTH + (xPos + j);
             displayPixel = video[displayPos];
             uint8_t result = spritePixel ^ displayPixel;
-            if (displayPixel != result)
+            // If white pixel is turned to black, then a collision occurs
+            if (displayPixel == 1 && result == 0)
                 V[0xF] = 1;
             // TODO: Check if i should use spritePixel instead of result
             video[displayPos] = result;
