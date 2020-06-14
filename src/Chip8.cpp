@@ -396,7 +396,7 @@ void Chip8::OP_Ex9E()
 void Chip8::OP_ExA1()
 {
     uint8_t x = (opcode & 0x0F00) >> 8;
-    if (keypad[V[x]] == 1)
+    if (keypad[V[x]] != 1)
         PC += 2;
 }
 
