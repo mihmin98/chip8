@@ -12,11 +12,11 @@ class Emulator
     std::string romPath;
 
     long cpuFrequency; // frequency in Hz
-    double cpuDuration;
+    double cpuDuration; // all times are in ms
     double cpuTime;
     double timerDuration;
     double timerTime;
-    std::chrono::high_resolution_clock::time_point tpStart, tpEnd;
+    std::chrono::high_resolution_clock::time_point tp1, tp2;
 
     SDL_Window *window;
     SDL_Surface *surface;
@@ -32,6 +32,7 @@ class Emulator
   public:
     Emulator(long cpuFrequency = 100, float windowScale = 8);
     void Run();
+    void SetRomPath(std::string romPath);
 };
 
 #endif // __EMULATOR_H__
