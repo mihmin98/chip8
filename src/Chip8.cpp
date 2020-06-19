@@ -478,3 +478,33 @@ void Chip8::OP_Fx65()
         V[i] = memory[I + i];
     I += x + 1;
 }
+
+void Chip8::PrintRegisters()
+{
+    std::cout << "\nRegisters\n";
+    printf("PC: 0x%03X  opcode: 0x%04X  I: 0x%03X\n", PC, opcode, I);
+    printf("SP: 0x%02X\n", SP);
+    for (uint8_t i = 0; i < 16; ++i) {
+        printf("%X: 0x%02x  ", i, stack[i]);
+        if ((i + 1) % 8 == 0)
+            printf("\n");
+    }
+    printf("\n");
+    for (uint8_t i = 0; i < 16; ++i) {
+        printf("V%X: 0x%02x  ", i, V[i]);
+        if ((i + 1) % 8 == 0)
+            printf("\n");
+    }
+    printf("\ndelay: %#02X  sound: %#02X\n", delayTimer, soundTimer);
+    printf("keypad\n");
+    for (uint8_t i = 0; i < 16; ++i) {
+        printf("%X: %d  ", i, keypad[i]);
+        if ((i + 1) % 8 == 0)
+            printf("\n");
+    }
+}
+
+// TODO: Add these debug functions
+void Chip8::PrintMemory() {}
+
+void Chip8::PrintVideoMemory() {}

@@ -8,6 +8,7 @@
 #include <cstring>
 #include <fstream>
 #include <iostream>
+#include <cstdio>
 #include <string>
 
 #define CHIP8_MEMORY_SIZE 4096
@@ -75,6 +76,11 @@ class Chip8
     void OP_Fx33(); // Store BCD of Vx at I, I+1, I+2
     void OP_Fx55(); // Store registers V0, V1, ..., Vx at I
     void OP_Fx65(); // Read registers V0, V1, ..., Vx from I
+
+    // Print Debug Info
+    void PrintRegisters();
+    void PrintMemory();
+    void PrintVideoMemory();
 };
 
 #endif // __CHIP8_H__
