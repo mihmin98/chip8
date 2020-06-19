@@ -28,6 +28,8 @@ void Emulator::Run()
     if (!chip8.LoadROM(romPath))
         return;
 
+    InitSDL();
+
     bool quit = false;
     tp1 = tp2 = std::chrono::high_resolution_clock::now();
     while (!quit) {
