@@ -6,8 +6,6 @@ Emulator::Emulator(long cpuFrequency, float windowScale)
     this->windowScale = windowScale;
 
     window = NULL;
-    windowWidth = CHIP8_VIDEO_WIDTH * windowScale;
-    windowHeight = CHIP8_VIDEO_HEIGHT * windowScale;
 
     cpuTime = 0;
     timerTime = 0;
@@ -59,6 +57,9 @@ void Emulator::Run()
 
 void Emulator::InitSDL()
 {
+    windowWidth = CHIP8_VIDEO_WIDTH * windowScale;
+    windowHeight = CHIP8_VIDEO_HEIGHT * windowScale;
+
     window = SDL_CreateWindow("CHIP-8 Emulator", SDL_WINDOWPOS_UNDEFINED,
                               SDL_WINDOWPOS_UNDEFINED, windowWidth,
                               windowHeight, SDL_WINDOW_SHOWN);
@@ -232,3 +233,13 @@ bool Emulator::GetInput()
 }
 
 void Emulator::SetRomPath(std::string romPath) { this->romPath = romPath; }
+
+void Emulator::SetCpuFrequency(long cpuFrequency)
+{
+    this->cpuFrequency = cpuFrequency;
+}
+
+void Emulator::SetWindowScale(float windowScale)
+{
+    this->windowScale = windowScale;
+}

@@ -30,9 +30,11 @@ class Emulator
     bool GetInput();
 
   public:
-    Emulator(long cpuFrequency = 100, float windowScale = 8);
+    Emulator(long cpuFrequency = 1000, float windowScale = 16);
     void Run();
     void SetRomPath(std::string romPath);
+    void SetCpuFrequency(long clockFrequency);
+    void SetWindowScale(float windowScale);
 };
 
 #endif // __EMULATOR_H__
