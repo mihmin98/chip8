@@ -241,6 +241,8 @@ std::string Emulator::GetRomPath() { return romPath; }
 void Emulator::SetCpuFrequency(long cpuFrequency)
 {
     this->cpuFrequency = cpuFrequency;
+    cpuDuration = 1.0 / cpuFrequency * 1000;
+    timerDuration = 1.0 / cpuFrequency * 1000;
 }
 
 void Emulator::SetWindowScale(float windowScale)
