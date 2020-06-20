@@ -47,7 +47,10 @@ void Emulator::Run()
                 chip8.PrintRegisters();
             
             chip8.Cycle();
-            DrawFrame();
+            if (chip8.drawFrame){
+                DrawFrame();
+                chip8.drawFrame = false;
+            }
 
             cpuTime -= cpuDuration;
         }

@@ -8,6 +8,7 @@ Chip8::Chip8()
     memset(stack, 0x0, sizeof(stack));
     memset(keypad, 0x0, sizeof(keypad));
     memset(video, 0x0, sizeof(video));
+    drawFrame = false;
 
     // Init registers
     PC = CHIP8_PROGRAM_START;
@@ -357,6 +358,7 @@ void Chip8::OP_Cxkk()
 // Draw
 void Chip8::OP_Dxyn()
 {
+    drawFrame = true;
     uint8_t x = (opcode & 0x0F00) >> 8;
     uint8_t y = (opcode & 0x00F0) >> 4;
     uint8_t n = opcode & 0x000F;

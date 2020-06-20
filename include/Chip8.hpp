@@ -3,12 +3,12 @@
 
 #pragma once
 #include <cstdint>
+#include <cstdio>
 #include <cstdlib>
-#include <ctime>
 #include <cstring>
+#include <ctime>
 #include <fstream>
 #include <iostream>
-#include <cstdio>
 #include <string>
 
 #define CHIP8_MEMORY_SIZE 4096
@@ -33,6 +33,7 @@ class Chip8
     uint8_t video[CHIP8_VIDEO_WIDTH * CHIP8_VIDEO_HEIGHT];
 
     uint16_t opcode; // current opcode
+    bool drawFrame;  // Flag to check if a draw call has been made
 
     Chip8();
     // Loads the rom from the specified path, return true on success
