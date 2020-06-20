@@ -33,6 +33,7 @@ class Emulator
     Emulator(long cpuFrequency = 1000, float windowScale = 16);
     void Run();
     void SetRomPath(std::string romPath);
+    std::string GetRomPath();
     void SetCpuFrequency(long clockFrequency);
     void SetWindowScale(float windowScale);
 };

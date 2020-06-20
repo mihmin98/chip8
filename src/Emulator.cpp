@@ -12,6 +12,8 @@ Emulator::Emulator(long cpuFrequency, float windowScale)
 
     cpuDuration = 1.0 / cpuFrequency * 1000;
     timerDuration = 1.0 / cpuFrequency * 1000;
+
+    romPath = "";
 }
 
 double Emulator::GetDeltaTime()
@@ -233,6 +235,8 @@ bool Emulator::GetInput()
 }
 
 void Emulator::SetRomPath(std::string romPath) { this->romPath = romPath; }
+
+std::string Emulator::GetRomPath() { return romPath; }
 
 void Emulator::SetCpuFrequency(long cpuFrequency)
 {
