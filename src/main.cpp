@@ -40,6 +40,11 @@ int main(int argc, char **argv)
                 }
         }
 
+        else if (std::string(argv[i]) == "-d" ||
+                 std::string(argv[i]) == "--debug") {
+            emu.SetDebug(true);
+        }
+
         else {
             emu.SetRomPath(argv[i]);
         }
@@ -57,5 +62,10 @@ int main(int argc, char **argv)
 void PrintHelp()
 {
     std::cout << "USAGE: chip8 [-cpu frequency_in_MHz] [-scale windowscale] "
-                 "rom_file\n\n-cpu:\tSpecify the cpu frequency in MHz\n-scale:\tSpecify the window scale\n";
+                 "[-d|--debug] rom_file\n\n"
+              << "-cpu:\tSpecify the cpu frequency in "
+                 "MHz\n"
+              << "-scale:\tSpecify the window scale\n"
+              << "-d|--debug:\tPrint "
+                 "debug info in terminal\n";
 }

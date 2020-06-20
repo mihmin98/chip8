@@ -10,8 +10,9 @@ class Emulator
 {
     Chip8 chip8;
     std::string romPath;
+    bool debug; // Flag to print debug info in terminal
 
-    long cpuFrequency; // frequency in Hz
+    long cpuFrequency;  // frequency in Hz
     double cpuDuration; // all times are in ms
     double cpuTime;
     double timerDuration;
@@ -36,6 +37,7 @@ class Emulator
     std::string GetRomPath();
     void SetCpuFrequency(long clockFrequency);
     void SetWindowScale(float windowScale);
+    void SetDebug(bool debug);
 };
 
 #endif // __EMULATOR_H__

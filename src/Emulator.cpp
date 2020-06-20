@@ -14,6 +14,7 @@ Emulator::Emulator(long cpuFrequency, float windowScale)
     timerDuration = 1.0 / cpuFrequency * 1000;
 
     romPath = "";
+    debug = false;
 }
 
 double Emulator::GetDeltaTime()
@@ -41,6 +42,10 @@ void Emulator::Run()
 
         if (cpuTime >= cpuDuration) {
             quit = GetInput();
+            
+            if (debug)
+                chip8.PrintRegisters();
+            
             chip8.Cycle();
             DrawFrame();
 
@@ -248,4 +253,8 @@ void Emulator::SetCpuFrequency(long cpuFrequency)
 void Emulator::SetWindowScale(float windowScale)
 {
     this->windowScale = windowScale;
+}
+
+void Emulator::SetDebug(bool debug) {
+    this->debug = debug;
 }
