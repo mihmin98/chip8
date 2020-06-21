@@ -58,8 +58,10 @@ void Emulator::Run()
         if (timerTime >= timerDuration) {
             if (chip8.delayTimer > 0)
                 --chip8.delayTimer;
-            if (chip8.soundTimer > 0)
+            if (chip8.soundTimer > 0) { 
                 --chip8.soundTimer;
+                audio.beep(440, timerDuration);
+            }
             timerTime -= timerDuration;
         }
     }

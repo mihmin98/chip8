@@ -3,6 +3,7 @@
 
 #pragma once
 #include "Chip8.hpp"
+#include "Audio.hpp"
 #include <SDL2/SDL.h>
 #include <chrono>
 
@@ -24,6 +25,8 @@ class Emulator
     SDL_Renderer *renderer;
     float windowScale;
     int windowWidth, windowHeight;
+
+    Audio audio;
 
     double GetDeltaTime();
     void InitSDL();
