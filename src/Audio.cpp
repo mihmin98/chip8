@@ -7,7 +7,7 @@ Audio::Audio()
     desiredSpec.freq = AUDIO_FREQUENCY;
     desiredSpec.format = AUDIO_S16SYS;
     desiredSpec.channels = 1;
-    desiredSpec.samples = 2048;
+    desiredSpec.samples = 4096;
     desiredSpec.callback = audio_callback;
     desiredSpec.userdata = this;
 
