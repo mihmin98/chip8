@@ -11,7 +11,7 @@ Emulator::Emulator(long cpuFrequency, float windowScale)
     timerTime = 0;
 
     cpuDuration = 1.0 / cpuFrequency * 1000;
-    timerDuration = 1.0 / cpuFrequency * 1000;
+    timerDuration = 1.0 / CHIP8_TIMER_FREQUENCY * 1000;
 
     romPath = "";
     debug = false;
@@ -250,7 +250,6 @@ void Emulator::SetCpuFrequency(long cpuFrequency)
 {
     this->cpuFrequency = cpuFrequency;
     cpuDuration = 1.0 / cpuFrequency * 1000;
-    timerDuration = 1.0 / cpuFrequency * 1000;
 }
 
 void Emulator::SetWindowScale(float windowScale)
