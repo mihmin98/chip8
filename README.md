@@ -29,7 +29,7 @@ This program uses the [Catch2](https://github.com/catchorg/Catch2) test suite.
 To run the tests just do ```make test```
 
 ## Built with
-* [SDL2](https://www.libsdl.org/index.php) - Graphics Libraru
+* [SDL2](https://www.libsdl.org/index.php) - Graphics Library
 * [Catch2](https://github.com/catchorg/Catch2) - Test Suite
 
 ## License
