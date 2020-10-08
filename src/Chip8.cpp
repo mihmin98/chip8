@@ -366,7 +366,7 @@ void Chip8::OP_Dxyn()
     uint16_t displayPos;
 
     uint8_t xPos = V[x] % CHIP8_VIDEO_WIDTH;
-    uint8_t yPos = V[y] % CHIP8_VIDEO_WIDTH;
+    uint8_t yPos = V[y] % CHIP8_VIDEO_HEIGHT;
     V[0xF] = 0;
 
     // The sprite dimensions are (8, n); Each line is represented as a byte
