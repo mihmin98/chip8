@@ -1,4 +1,3 @@
-# https://github.com/erichschroeter/cmake-catch2-example
 cmake_minimum_required(VERSION 3.13)
 project(chip8)
 
@@ -7,10 +6,6 @@ list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/Modules")
 
 include(CTest)
 enable_testing()
-
-# SDL2 stuf
-find_package(SDL2 REQUIRED)
-include_directories(${SDL2_INCLUDE_DIR})
 
 # Create main library
 add_library(emulator "")
@@ -24,7 +19,6 @@ add_executable(chip8
 target_link_libraries(chip8
     PRIVATE
         emulator
-        ${SDL2_LIBRARY}
 )
 
 target_compile_options(chip8
