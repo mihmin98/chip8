@@ -16,6 +16,17 @@ make
 ```
 The emulator will be located in ```chip8/build/app```
 
+Also, you can use CMake
+```
+git clone https://github.com/mihmin98/chip8.git
+cd chip8
+mkdir build
+cd build
+cmake ..
+make
+```
+The emulator will be located at ``chip8/build/chip8``
+
 ### Running
 ```
 chip8 [-cpu frequency_in_MHz] [-scale windowscale] [d|--debug] rom_file
@@ -27,6 +38,8 @@ chip8 [-cpu frequency_in_MHz] [-scale windowscale] [d|--debug] rom_file
 ### Running Tests
 This program uses the [Catch2](https://github.com/catchorg/Catch2) test suite.
 To run the tests just do ```make test```
+
+Or if you built the project with CMake, run the executable `unit_tests` in the `build` folder
 
 ## Built with
 * [SDL2](https://www.libsdl.org/index.php) - Graphics Library
