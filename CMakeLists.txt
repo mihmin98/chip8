@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.13)
+cmake_policy(SET CMP0110 NEW)
 project(chip8)
 
 # Add cmake modules path
