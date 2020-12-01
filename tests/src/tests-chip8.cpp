@@ -18,7 +18,7 @@ TEST_CASE("OPCODE 00E0", "[opcode]")
             break;
         }
 
-    REQUIRE(allZero == false);
+    REQUIRE(allZero == true);
 }
 
 TEST_CASE("OPCODE 00EE", "[opcode]")
