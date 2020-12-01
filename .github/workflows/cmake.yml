@@ -33,7 +33,7 @@ jobs:
     - name: Setup CMake
       uses: jwlawson/actions-setup-cmake@v1.4
       with:
-        cmake-version: '3.13'
+        cmake-version: '3.19.1'
 
     - name: Print CMake version
       run: cmake --version
